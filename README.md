@@ -10,7 +10,7 @@ Add django_geo_regions to your INSTALLED_APPS in your Django settings:
 
 INSTALLED_APPS = [
     ...
-    'django_geo_regions',
+    'django_geodata',
 ]
 
 
