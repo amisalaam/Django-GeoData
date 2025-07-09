@@ -1,44 +1,45 @@
-# pyGeoData
+Django Geo Regions
+A Django library for managing countries, states, and districts with foreign key relationships.
+Installation
+Install the library using pip:
+pip install django-geo-regions
 
-A modular Python package for geographic data (countries, states, districts) with FastAPI support. No database required!
+Setup
 
-## Installation
+Add django_geo_regions to your INSTALLED_APPS in your Django settings:
 
-`ash
-pip install pyGeoData
-pip install pyGeoData[all]  # For all features
-`
+INSTALLED_APPS = [
+    ...
+    'django_geo_regions',
+]
 
-## Usage
 
-### Run the API
-`ash
-uvicorn pyGeoData.main:app --reload
-`
+Run migrations to create the tables and populate initial data:
 
-### API Endpoints
-- GET /v1/countries/: List all countries
-- POST /v1/countries/: Create a country
-- GET /v1/states/: List all states
-- POST /v1/states/: Create a state
-- GET /v1/districts/: List all districts
-- POST /v1/districts/: Create a district
+python manage.py makemigrations
+python manage.py migrate
 
-### Direct Data Access
-`python
-from pyGeoData.core.data_manager import get_countries
+Usage
+You can use the models in your Django project:
+from django_geo_regions.models import Country, State, District
 
-countries = get_countries()
-print([country.name for country in countries])
-`
+# Example: Create a new model with a foreign key to District
+class MyModel(models.Model):
+    name = models.CharField(max_length=100)
+    district = models.ForeignKey(District, on_delete=models.CASCADE, related_name='mymodels')
 
-## Modular Installation
-- Countries only: pip install pyGeoData[countries]
-- Countries and states: pip install pyGeoData[states]
-- All features: pip install pyGeoData[all]
+# Querying examples
+countries = Country.objects.all()
+states = State.objects.filter(country__code='USA')
+districts = District.objects.filter(state__name='California')
 
-## Contributing
-Contributions are welcome! Please read the [contributing guidelines](CONTRIBUTING.md).
+Models
 
-## License
-MIT License
+Country: Represents a country with a name and ISO code.
+State: Represents a state/province, linked to a Country via a foreign key.
+District: Represents a district, linked to a State via a foreign key.
+
+Notes
+
+The library automatically populates sample data for countries, states, and districts during migrations.
+Ensure your Django project uses a compatible version (Django 3.2 or higher).

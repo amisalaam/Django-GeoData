@@ -3,33 +3,20 @@ requires = ["setuptools>=61.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "pyGeoData"
+name = "django-geodata"
 version = "0.1.0"
-description = "A modular Python package for geographic data (countries, states, districts) with FastAPI support"
+dependencies = [
+    "Django>=3.2",
+]
+requires-python = ">=3.6"
+authors = [
+    {name = "Amisalaam", email = "amisalaam9@gmail.com"},
+]
+description = "A Django library for managing countries, states, and districts with foreign key relationships"
 readme = "README.md"
-authors = [{ name = "amisalaam", email = "your.email@example.com" }]
-license = { file = "LICENSE" }
+license = {text = "MIT"}
 classifiers = [
+    "Framework :: Django",
     "Programming Language :: Python :: 3",
     "License :: OSI Approved :: MIT License",
-    "Operating System :: OS Independent",
 ]
-requires-python = ">=3.8"
-dependencies = [
-    "fastapi>=0.103.0",
-    "uvicorn>=0.23.0",
-    "pydantic>=2.0.0",
-]
-
-[project.optional-dependencies]
-countries = []
-states = ["pyGeoData[countries]"]
-districts = ["pyGeoData[states]"]
-all = ["pyGeoData[countries,states,districts]"]
-
-[project.urls]
-Homepage = "https://github.com/amisalaam/PyGeoData"
-Repository = "https://github.com/amisalaam/PyGeoData.git"
-
-[project.scripts]
-pygeodata = "pyGeoData.cli:app"

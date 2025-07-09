@@ -1,27 +1,25 @@
 from setuptools import setup, find_packages
 
 setup(
-    name="pyGeoData",
+    name="django-geodata",
     version="0.1.0",
     packages=find_packages(),
-    install_requires=[
-        "fastapi>=0.103.0",
-        "uvicorn>=0.23.0",
-        "pydantic>=2.0.0",
-    ],
-    extras_require={
-        "countries": [],
-        "states": ["pyGeoData[countries]"],
-        "districts": ["pyGeoData[states]"],
-        "all": ["pyGeoData[countries,states,districts]"],
-    },
     include_package_data=True,
+    install_requires=[
+        'Django>=3.2',
+    ],
     package_data={
-        "pyGeoData": ["core/data/*.json"],
+        'src': ['data/*.json'],
     },
-    entry_points={
-        "console_scripts": [
-            "pygeodata = pyGeoData.cli:app",
-        ],
-    },
+    author="Your Name",
+    author_email="your.email@example.com",
+    description="A Django library for managing countries, states, and districts with foreign key relationships",
+    long_description=open('README.md').read(),
+    long_description_content_type="text/markdown",
+    url="https://github.com/amisalaam/Django-GeoData.git",
+    classifiers=[
+        "Framework :: Django",
+        "Programming Language :: Python :: 3",
+        "License :: OSI Approved :: MIT License",
+    ],
 )
